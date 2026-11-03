@@ -1,0 +1,38 @@
+name: final-project-ose
+channels:
+  - huggingface
+  - pytorch
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11
+  - jupyterlab
+  - ipywidgets
+
+  # basics
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - seaborn
+
+  # sklearn
+  - scikit-learn
+  - scikit-image
+
+
+  # huggingface
+  - transformers=4.28.0
+  - tokenizers
+  - datasets
+  - sentencepiece
+  - loralib
+
+  - pip
+  - pip:
+    # pytorch
+    - torch
+    - torchvision
+    - torchtext
+    - huggingface_hub[cli]
+    - peft
