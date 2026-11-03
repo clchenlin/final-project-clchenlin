@@ -1,11 +1,18 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/R1vgPUT1)
 
-+ Topic of my final project: Use NLP to identify sarcasm
-+ Type of my final project: Focus on using NLP
 # Overview
-My final project focuses on using NLP approach to identify sarcasm. The main notebook is *headline.ipynb*, which imports functions from *functions.py*. The pdf file *summary.pdf* summarizes the results and compares the performance of different approaches.
+This is a final project for Introduction to Deep Learning and NLP at University of Bonn in spring 2023. The main notebook is *headline.ipynb*, which imports functions from *functions.py*. The pdf file *summary.pdf* summarizes the results and compares the performance of different approaches.
+
+The project uses the [News Headlines Dataset for Sarcasm Detection](https://www.kaggle.com/datasets/rmisra/news-headlines-dataset-for-sarcasm-detection), which has 26,709 headlines: about 56.1% are non-sarcastic and 43.9% are sarcastic. The data is shuffled and split into training, validation and test sets in a 0.7 : 0.15 : 0.15 ratio. I compare three approaches, and the first two both build on the pretrained model *MiniLM-L12-H384-uncased*:
++ **Feature extraction:** I try three ways of post-processing the hidden states (averaging over the token dimension, keeping the first token, keeping the last valid token). For each one, I tune a Logistic Regression and a Random Forest classifier, which gives six combinations.
++ **Fine-tuning:** I do full fine-tuning with class weights in the loss to handle the slight class imbalance. I also do parameter-efficient fine-tuning with PEFT and LoRA, where about 44% of the parameters are trainable.
++ **An existing fine-tuned model from Hugging Face:** *jkhan447/sarcasm-detection-RoBerta-base-CR*.
+
+Full fine-tuning performs best, with a macro F1-score of 0.92 (accuracy 0.93). PEFT/LoRA is almost as good, with an F1-score of 0.92 (accuracy 0.92), even though it trains far fewer parameters. Among the feature extraction models, averaging over the token dimension with Logistic Regression does best, with an F1-score of 0.88. The Hugging Face model only scores 0.50 on this dataset.
 
 # Questions
+These are my learning notes on the key concepts behind this project. They range from NLP basics and how machine learning differs from econometrics to neural network training, tokenization, fine-tuning and Transformer architectures. Each topic below is a guiding question, followed by my answer as I understand it. Together they serve as a compact review of the background behind this project.
+
 1. List five different tasks that belong to the field of natural language processing.
    + Text classification/ sentiment analysis
    + Question answering
